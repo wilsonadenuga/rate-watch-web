@@ -4,27 +4,22 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { AppWindow, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 export function InstallPrompt() {
   const [open, setOpen] = useState(false)
-  const [isStandalone, setIsStandalone] = useState(false)
+  const [isInstalled, setIsInstalled] = useState(false)
   const [installPrompt, setInstallPrompt] = useState<any>(null)
+  const isDisplayStandalone = useMediaQuery('(display-mode: standalone)')
 
   let isIOS = true
+  let isNavigatorStandalone = false
   if (typeof window !== 'undefined' && 'navigator' in window) {
     isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+    isNavigatorStandalone = Boolean((window.navigator as any).standalone)
   }
 
-  useEffect(() => {
-    try {
-      setIsStandalone(
-        window.matchMedia('(display-mode: standalone)').matches ||
-          (window.navigator as any).standalone,
-      )
-    } catch (error) {
-      console.error('Error checking standalone mode:', error)
-    }
-  }, [])
+  const isStandalone = isInstalled || isDisplayStandalone || isNavigatorStandalone
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null
@@ -41,7 +36,7 @@ export function InstallPrompt() {
     const handleAppInstalled = () => {
       setInstallPrompt(null)
       setOpen(false)
-      setIsStandalone(true)
+      setIsInstalled(true)
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)

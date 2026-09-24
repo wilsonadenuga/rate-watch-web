@@ -13,7 +13,7 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet/sheet'
 import { useAppContext } from '@/providers/app.provider'
-import { SignedIn } from '@clerk/nextjs'
+import { Show } from '@clerk/nextjs'
 import { formatNumberWithCommas, removeCommas } from '@/lib/utils'
 import Link from 'next/link'
 
@@ -162,7 +162,7 @@ export function SearchResult() {
             </div>
           </ScrollArea>
 
-          <SignedIn>
+          <Show when="signed-in">
             <SheetFooter className="bg-slate-100 border-t border-zinc-100 px-4">
               <div className="mx-auto w-full max-w-sm py-4 px-0">
                 <div className="flex justify-between space-x-4">
@@ -179,7 +179,7 @@ export function SearchResult() {
                 </div>
               </div>
             </SheetFooter>
-          </SignedIn>
+          </Show>
         </SheetContent>
       </SheetPortal>
     </Sheet>

@@ -4,7 +4,7 @@ import React from 'react'
 import { Notifications } from './notifications/notifications'
 import { Button } from '@/components/ui/button/button'
 import { UserWidget } from './user-widget/user-widget'
-import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { SignInButton, Show } from '@clerk/nextjs'
 
 export const Header = () => {
   return (
@@ -26,15 +26,15 @@ export const Header = () => {
           dir="ltr"
           className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-auto space-x-3 md:space-x-3"
         >
-          <SignedIn>
+          <Show when="signed-in">
             <Notifications />
             <UserWidget />
-          </SignedIn>
-          <SignedOut>
+          </Show>
+          <Show when="signed-out">
             <SignInButton>
               <Button>Sign In</Button>
             </SignInButton>
-          </SignedOut>
+          </Show>
         </nav>
       </div>
     </header>

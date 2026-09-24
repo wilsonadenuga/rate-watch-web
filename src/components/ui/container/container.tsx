@@ -2,8 +2,8 @@ import { twMerge } from 'tailwind-merge'
 
 import React from 'react'
 
-type ContainerProps = JSX.IntrinsicElements['div'] & {
-  containerProps?: JSX.IntrinsicElements['section']
+type ContainerProps = React.JSX.IntrinsicElements['div'] & {
+  containerProps?: React.JSX.IntrinsicElements['section']
 }
 
 export const Container = ({ className, children, containerProps, ...props }: ContainerProps) => {

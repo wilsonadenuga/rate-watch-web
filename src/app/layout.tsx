@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   const analyticsKey = process.env.NEXT_PUBLIC_GTM_ID
   return (
-    <ClerkProvider>
+    <ClerkProvider dynamic>
       <html lang="en">
         {analyticsKey && <GoogleTagManager gtmId={analyticsKey} />}
         <body className={inter.className}>
