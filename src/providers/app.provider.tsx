@@ -23,13 +23,21 @@ interface AppContextValue {
 
 const AppContext = createContext<AppContextValue | undefined>(undefined)
 
-export const AppProvider = ({ children }: any) => {
+export const AppProvider = ({
+  children,
+  defaultSourceCurrency,
+}: {
+  children: React.ReactNode
+  defaultSourceCurrency: string
+}) => {
   const searchParams = useSearchParams()
   const initialSourceCurrency = searchParams.get('sourceCurrency')
   const initialTargetCurrency = searchParams.get('targetCurrency')
   const initialAmount = validateNumberInput(searchParams.get('amount') ?? '')
 
-  const [sourceCurrency, setSourceCurrency] = useState(initialSourceCurrency ?? 'GBP')
+  const [sourceCurrency, setSourceCurrency] = useState(
+    initialSourceCurrency ?? defaultSourceCurrency,
+  )
   const [targetCurrency, setTargetCurrency] = useState(initialTargetCurrency ?? 'NGN')
   const [amount, setAmount] = useState(initialAmount ?? '')
   const [showResult, setShowResult] = useState(false)

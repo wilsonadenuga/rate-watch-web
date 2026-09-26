@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import React from 'react'
 
-type CurrencyIconProps = JSX.IntrinsicElements['div'] & {
+type CurrencyIconProps = React.JSX.IntrinsicElements['div'] & {
   currency: string
   size?: 'sm' | 'lg'
 }

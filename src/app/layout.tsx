@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/sonner/sonner'
 import { CookieBar } from './_components/cookie-bar/cookie-bar'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { InstallPrompt } from './_components/install-prompt/install-prompt'
+import { getLocationSourceCurrency } from '@/lib/location-currency'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,18 +23,19 @@ export const viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   const analyticsKey = process.env.NEXT_PUBLIC_GTM_ID
+  const defaultSourceCurrency = await getLocationSourceCurrency()
   return (
-    <ClerkProvider>
-      <html lang="en">
+    <ClerkProvider dynamic>
+      <html lang="en" suppressHydrationWarning>
         {analyticsKey && <GoogleTagManager gtmId={analyticsKey} />}
         <body className={inter.className}>
-          <Providers>
+          <Providers defaultSourceCurrency={defaultSourceCurrency}>
             <div className="flex flex-col justify-between w-full h-screen min-h-screen overflow-auto">
               <Header />
               <main className="flex-auto">{children}</main>
